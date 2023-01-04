@@ -33,6 +33,9 @@ public class Recipe extends BaseEntity {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
     private Set<Ingredient> ingredients = new HashSet<>();
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
+    private Set<PreparationSteps> preparationSteps = new HashSet<>();
+
     @Enumerated(value = EnumType.STRING)
     private Difficulty difficulty;
 

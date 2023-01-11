@@ -12,6 +12,13 @@ import java.math.BigDecimal;
 @Builder(toBuilder = true)
 @Entity
 public class Ingredient extends BaseEntity {
+
+    public Ingredient(String description, BigDecimal amount, UnitOfMeasure unitOfMeasure) {
+        this.description = description;
+        this.amount = amount;
+        this.unitOfMeasure = unitOfMeasure;
+    }
+
     private String description;
     private BigDecimal amount;
 

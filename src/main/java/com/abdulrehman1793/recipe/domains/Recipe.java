@@ -22,11 +22,6 @@ public class Recipe extends BaseEntity {
     private String source;
     private String url;
 
-    @Lob
-    private String directions;
-    @Lob
-    private Byte[] image;
-
     @OneToOne(cascade = CascadeType.ALL)
     private Note note;
 
@@ -36,6 +31,9 @@ public class Recipe extends BaseEntity {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
     private Set<PreparationSteps> preparationSteps = new HashSet<>();
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
+    private Set<Images> images = new HashSet<>();
+
     @Enumerated(value = EnumType.STRING)
     private Difficulty difficulty;
 
@@ -44,4 +42,14 @@ public class Recipe extends BaseEntity {
             joinColumns = @JoinColumn(name = "recipe_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<Category> categories = new HashSet<>();
+
+    public void addIngredient(Ingredient ingredient) {
+        ingredient.setRecipe(this);
+        ingredients.add(ingredient);
+    }
+
+    public void addPreparationSteps(PreparationSteps preparationStep) {
+        preparationStep.setRecipe(this);
+        preparationSteps.add(preparationStep);
+    }
 }

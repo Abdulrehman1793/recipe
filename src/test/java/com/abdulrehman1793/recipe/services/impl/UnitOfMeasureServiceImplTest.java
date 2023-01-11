@@ -8,10 +8,14 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
@@ -21,12 +25,50 @@ class UnitOfMeasureServiceImplTest {
     @Mock
     private UnitOfMeasureRepository uomRepository;
 
+    @Mock
+    private Pageable pageable;
+
     @InjectMocks
     private UnitOfMeasureServiceImpl cut;
 
     Long uomId = 1L;
     String uomText = "teaspoon";
     UnitOfMeasure uom = new UnitOfMeasure(uomId, uomText);
+
+    Page<UnitOfMeasure> page = Page.empty(PageRequest.of(0, 1));
+
+    @Test
+    @DisplayName("findPage-should return uom page on passing valid parameter")
+    void shouldReturnPage() {
+        when(uomRepository.findAll(pageable)).thenReturn(page);
+
+        Page<UnitOfMeasure> unitOfMeasurePage = cut.findPage(pageable);
+
+        assertNotNull(unitOfMeasurePage);
+        verify(uomRepository, times(1)).findAll(pageable);
+        verify(uomRepository, never()).findAll();
+    }
+
+    @Test
+    @DisplayName("findById-should return uom by id successfully")
+    void shouldReturnUomById() {
+        when(uomRepository.findById(uomId)).thenReturn(Optional.of(uom));
+
+        UnitOfMeasure uom = cut.findById(uomId);
+
+        assertThat(uom).isNotNull();
+        verify(uomRepository, times(1)).findById(uomId);
+    }
+
+    @Test
+    @DisplayName("findById-should throw exception on find by Id")
+    void shouldThrowOnFindById() {
+        when(uomRepository.findById(uomId)).thenThrow(RuntimeException.class);
+
+        assertThrows(RuntimeException.class, () -> cut.findById(uomId));
+
+        verify(uomRepository, times(1)).findById(uomId);
+    }
 
     @Test
     @DisplayName("create-should throw duplicate exception")

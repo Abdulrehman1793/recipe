@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/uom")
 public class UnitOfMeasureController {
+    private final String[] FIELDS = new String[]{"uom"};
+
     private final UnitOfMeasureService unitOfMeasureService;
-    private final ControllerHelperService<UnitOfMeasure> controllerHelperService;
+    private final ControllerHelperService controllerHelperService;
 
     @GetMapping
     public ResponseEntity<Page<UnitOfMeasure>> findPage(
@@ -28,7 +30,7 @@ public class UnitOfMeasureController {
             @RequestParam(value = "sort", required = false) String[] sorts) {
 
         Pageable pageable = PageRequest.of(page, size,
-                controllerHelperService.sortRequestParameterToSort(new UnitOfMeasure(), sorts));
+                controllerHelperService.sortRequestParameterToSort(FIELDS, sorts));
 
         return ResponseEntity.ok(unitOfMeasureService.findPage(pageable));
     }

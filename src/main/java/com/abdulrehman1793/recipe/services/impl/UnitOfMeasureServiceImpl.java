@@ -1,6 +1,7 @@
 package com.abdulrehman1793.recipe.services.impl;
 
 import com.abdulrehman1793.recipe.domains.UnitOfMeasure;
+import com.abdulrehman1793.recipe.exceptions.BadRequestException;
 import com.abdulrehman1793.recipe.repositories.UnitOfMeasureRepository;
 import com.abdulrehman1793.recipe.services.UnitOfMeasureService;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +30,7 @@ public class UnitOfMeasureServiceImpl implements UnitOfMeasureService {
     @Override
     public UnitOfMeasure create(String uom) {
         unitOfMeasureRepository.findByUom(uom).ifPresent(unitOfMeasure -> {
-            throw new RuntimeException("Unit of measures already exists.");
+            throw new BadRequestException("Unit of measures already exists.");
         });
 
         return unitOfMeasureRepository.save(new UnitOfMeasure(uom));
@@ -44,6 +45,6 @@ public class UnitOfMeasureServiceImpl implements UnitOfMeasureService {
 
     private UnitOfMeasure findByIdOrElseThrow(Long id) {
         return unitOfMeasureRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Unit of measures not found for " + id));
+                .orElseThrow(() -> new BadRequestException("Unit of measures not found for " + id));
     }
 }

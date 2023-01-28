@@ -1,5 +1,6 @@
 package com.abdulrehman1793.recipe.domains;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
@@ -12,6 +13,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder(toBuilder = true)
+@JsonIgnoreProperties("recipe")
 @Entity
 public class Images extends BaseEntity {
     @Lob

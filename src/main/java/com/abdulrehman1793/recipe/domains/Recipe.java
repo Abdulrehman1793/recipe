@@ -15,6 +15,8 @@ import java.util.Set;
 @Builder(toBuilder = true)
 @Entity
 public class Recipe extends BaseEntity {
+    private String title;
+    private String subTitle;
     private String description;
     private Integer prepTime;
     private Integer cookTime;

@@ -1,5 +1,6 @@
 package com.abdulrehman1793.recipe.domains;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -11,6 +12,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @Builder(toBuilder = true)
 @Entity
+@JsonIgnoreProperties("recipe")
 public class Ingredient extends BaseEntity {
 
     public Ingredient(String description, BigDecimal amount, UnitOfMeasure unitOfMeasure) {

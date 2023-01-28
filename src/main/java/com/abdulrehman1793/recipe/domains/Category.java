@@ -1,5 +1,6 @@
 package com.abdulrehman1793.recipe.domains;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
 import lombok.*;
@@ -12,6 +13,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
+@JsonIgnoreProperties("recipes")
 @Entity
 public class Category extends BaseEntity {
     private String description;

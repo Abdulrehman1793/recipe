@@ -1,5 +1,6 @@
 package com.abdulrehman1793.recipe.domains;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -11,6 +12,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
+@JsonIgnoreProperties("recipe")
 @Entity
 public class PreparationSteps extends BaseEntity {
     private int priority;

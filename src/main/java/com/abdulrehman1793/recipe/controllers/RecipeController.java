@@ -5,11 +5,15 @@ import com.abdulrehman1793.recipe.payload.request.RecipeRequest;
 import com.abdulrehman1793.recipe.services.RecipeService;
 import com.abdulrehman1793.recipe.util.AppConstant;
 import com.abdulrehman1793.recipe.util.ControllerHelperService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.SortDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,8 +42,15 @@ public class RecipeController {
         return ResponseEntity.ok(recipeService.findPage(pageable));
     }
 
+    @GetMapping("/load")
+    public ResponseEntity<Page<Recipe>> loadPage(
+            @PageableDefault(page = 0, size = 10)
+            @SortDefault.SortDefaults(@SortDefault(sort = "id", direction = Sort.Direction.DESC)) Pageable pageable) {
+        return ResponseEntity.ok(recipeService.findPage(pageable));
+    }
+
     @PostMapping
-    public ResponseEntity<Recipe> createRecipe(@RequestBody RecipeRequest recipeRequest) {
+    public ResponseEntity<Recipe> createRecipe(@RequestBody @Valid RecipeRequest recipeRequest) {
         System.out.println(recipeRequest.toString());
         return ResponseEntity.ok(recipeService.createRecipe(recipeRequest));
     }

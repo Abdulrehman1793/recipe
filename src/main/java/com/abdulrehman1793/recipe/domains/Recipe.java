@@ -2,6 +2,7 @@ package com.abdulrehman1793.recipe.domains;
 
 import com.abdulrehman1793.recipe.enums.Difficulty;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.util.HashSet;
@@ -15,7 +16,9 @@ import java.util.Set;
 @Builder(toBuilder = true)
 @Entity
 public class Recipe extends BaseEntity {
+    @NotBlank
     private String title;
+
     private String subTitle;
     private String description;
     private Integer prepTime;

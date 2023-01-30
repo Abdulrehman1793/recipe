@@ -49,6 +49,12 @@ public class RecipeController {
         return ResponseEntity.ok(recipeService.findPage(pageable));
     }
 
+    @GetMapping("{id}")
+    public ResponseEntity<Recipe> findRecipeById(@PathVariable Long id) {
+        return ResponseEntity.ok(recipeService.findRecipeById(id));
+    }
+
+
     @PostMapping
     public ResponseEntity<Recipe> createRecipe(@RequestBody @Valid RecipeRequest recipeRequest) {
         System.out.println(recipeRequest.toString());

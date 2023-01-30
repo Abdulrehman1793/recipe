@@ -1,6 +1,7 @@
 package com.abdulrehman1793.recipe.services.impl;
 
 import com.abdulrehman1793.recipe.domains.Recipe;
+import com.abdulrehman1793.recipe.exceptions.BadRequestException;
 import com.abdulrehman1793.recipe.payload.request.RecipeRequest;
 import com.abdulrehman1793.recipe.repositories.RecipeRepository;
 import com.abdulrehman1793.recipe.services.RecipeService;
@@ -30,6 +31,11 @@ public class RecipeServiceImpl implements RecipeService {
         System.out.println(pageable.getSort().toList());
 
         return recipeRepository.findAll(pageable);
+    }
+
+    @Override
+    public Recipe findRecipeById(Long id) {
+        return recipeRepository.findById(id).orElseThrow(() -> new BadRequestException("Recipe not found for " + id));
     }
 
     @Override

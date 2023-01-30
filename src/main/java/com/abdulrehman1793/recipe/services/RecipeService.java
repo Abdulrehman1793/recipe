@@ -8,5 +8,7 @@ import org.springframework.data.domain.Pageable;
 public interface RecipeService {
     Page<Recipe> findPage(Pageable pageable);
 
+    Recipe findRecipeById(Long id);
+
     Recipe createRecipe(RecipeRequest recipeRequest);
 }

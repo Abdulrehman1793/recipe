@@ -14,7 +14,6 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
-import org.springframework.stereotype.Component;
 import org.springframework.util.ResourceUtils;
 
 import java.math.BigDecimal;
@@ -23,7 +22,6 @@ import java.util.List;
 import java.util.Set;
 
 @Slf4j
-@Component
 @RequiredArgsConstructor
 public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
@@ -52,7 +50,7 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
             recipe.getCategories().forEach(category -> {
                 Category categoryFromDB = categoryRepository.findByDescription(category.getDescription())
                         .orElseThrow(() -> new RuntimeException("expected category not found"));
-                category.setId(categoryFromDB.getId());
+//                category.setId(categoryFromDB.getId());
             });
 
             Set<Ingredient> ingredients = recipe.getIngredients();

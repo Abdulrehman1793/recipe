@@ -1,21 +1,26 @@
 package com.abdulrehman1793.recipe.domains;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToMany;
-import lombok.*;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Data
-@EqualsAndHashCode(callSuper = true, exclude = {"recipes"})
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
 @JsonIgnoreProperties("recipes")
 @Entity
-public class Category extends BaseEntity {
+public class Category {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private String description;
 
     @ManyToMany(mappedBy = "categories")

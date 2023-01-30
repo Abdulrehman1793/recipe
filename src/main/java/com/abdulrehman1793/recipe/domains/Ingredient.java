@@ -7,7 +7,7 @@ import lombok.*;
 import java.math.BigDecimal;
 
 @Data
-@EqualsAndHashCode(exclude = {"recipe"})
+@EqualsAndHashCode(exclude = {"recipe"}, callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)

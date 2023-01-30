@@ -1,15 +1,15 @@
 package com.abdulrehman1793.recipe.domains;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.annotations.UuidGenerator;
 
+import java.sql.Timestamp;
 import java.util.UUID;
 
 @Getter
@@ -22,4 +22,14 @@ public class BaseEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     @UuidGenerator
     private UUID id;
+
+    @Version
+    private Long version;
+
+    @CreationTimestamp
+    @Column(updatable = false)
+    private Timestamp createdDate;
+
+    @UpdateTimestamp
+    private Timestamp lastModifiedDate;
 }

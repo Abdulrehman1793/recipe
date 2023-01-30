@@ -1,10 +1,10 @@
-package com.abdulrehman1793.recipe.controllers;
+package com.abdulrehman1793.recipe.web.controller;
 
 import com.abdulrehman1793.recipe.domains.Recipe;
-import com.abdulrehman1793.recipe.payload.request.RecipeRequest;
 import com.abdulrehman1793.recipe.services.RecipeService;
 import com.abdulrehman1793.recipe.util.AppConstant;
 import com.abdulrehman1793.recipe.util.ControllerHelperService;
+import com.abdulrehman1793.recipe.web.models.request.RecipeRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
+import java.util.UUID;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -50,14 +51,13 @@ public class RecipeController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Recipe> findRecipeById(@PathVariable Long id) {
+    public ResponseEntity<Recipe> findRecipeById(@PathVariable UUID id) {
         return ResponseEntity.ok(recipeService.findRecipeById(id));
     }
 
 
     @PostMapping
     public ResponseEntity<Recipe> createRecipe(@RequestBody @Valid RecipeRequest recipeRequest) {
-        System.out.println(recipeRequest.toString());
         return ResponseEntity.ok(recipeService.createRecipe(recipeRequest));
     }
 }

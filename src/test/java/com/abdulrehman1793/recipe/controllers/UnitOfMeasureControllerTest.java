@@ -2,6 +2,7 @@ package com.abdulrehman1793.recipe.controllers;
 
 import com.abdulrehman1793.recipe.services.UnitOfMeasureService;
 import com.abdulrehman1793.recipe.util.ControllerHelperService;
+import com.abdulrehman1793.recipe.web.controller.UnitOfMeasureController;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;

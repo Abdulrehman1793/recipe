@@ -1,5 +1,6 @@
 package com.abdulrehman1793.recipe.controllers;
 
+import com.abdulrehman1793.recipe.exceptions.BadRequestException;
 import com.abdulrehman1793.recipe.exceptions.NoSuchElementFoundException;
 import com.abdulrehman1793.recipe.payload.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -41,9 +42,16 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(NoSuchElementFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ResponseEntity<Object> handleNoSuchElementFoundException(NoSuchElementFoundException itemNotFoundException, WebRequest request) {
-        log.error("Failed to find the requested element", itemNotFoundException);
-        return buildErrorResponse(itemNotFoundException, HttpStatus.NOT_FOUND, request);
+    public ResponseEntity<Object> handleNoSuchElementFoundException(NoSuchElementFoundException noSuchElementFoundException, WebRequest request) {
+        log.error("Failed to find the requested element", noSuchElementFoundException);
+        return buildErrorResponse(noSuchElementFoundException, HttpStatus.NOT_FOUND, request);
+    }
+
+    @ExceptionHandler(BadRequestException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<Object> handleBadRequestException(BadRequestException badRequestException, WebRequest request) {
+        log.error("Failed to find the requested element", badRequestException);
+        return buildErrorResponse(badRequestException, HttpStatus.BAD_REQUEST, request);
     }
 
     @ExceptionHandler(PropertyReferenceException.class)

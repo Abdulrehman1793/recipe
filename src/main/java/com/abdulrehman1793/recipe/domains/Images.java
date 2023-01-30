@@ -15,7 +15,7 @@ import lombok.*;
 @Builder(toBuilder = true)
 @JsonIgnoreProperties("recipe")
 @Entity
-public class Images extends BaseEntity {
+public class Images extends BaseEntityUUID {
     @Lob
     private Byte[] image;
 

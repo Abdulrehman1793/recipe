@@ -15,7 +15,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder(toBuilder = true)
 @Entity
-public class Recipe extends BaseEntity {
+public class Recipe extends BaseEntityUUID {
     @NotBlank
     private String title;
 

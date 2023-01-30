@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 @Builder(toBuilder = true)
 @Entity
 @JsonIgnoreProperties("recipe")
-public class Ingredient extends BaseEntity {
+public class Ingredient extends BaseEntityUUID {
 
     public Ingredient(String description, BigDecimal amount, UnitOfMeasure unitOfMeasure) {
         this.description = description;

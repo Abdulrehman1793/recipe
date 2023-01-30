@@ -13,7 +13,7 @@ import lombok.*;
 @Builder(toBuilder = true)
 @JsonIgnoreProperties("recipe")
 @Entity
-public class Note extends BaseEntity {
+public class Note extends BaseEntityUUID {
     @Lob
     private String recipeNotes;
 

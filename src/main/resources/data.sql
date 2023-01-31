@@ -1,13 +1,25 @@
-insert into category (description) values ('american');
-insert into category (description) values ('indian');
-insert into category (description) values ('italian');
-insert into category (description) values ('mexican');
-insert into category (description) values ('chinese');
+insert into category (title, description)
+values ('american', 'American cuisine');
+insert into category (title, description)
+values ('indian', 'Indian cuisine');
+insert into category (title, description)
+values ('italian', 'Italian cuisine');
+insert into category (title, description)
+values ('mexican', 'Mexican cuisine');
+insert into category (title, description)
+values ('chinese', 'Chinese cuisine');
 
-insert into unit_of_measure (uom) values ('teaspoon');
-insert into unit_of_measure (uom) values ('tablespoon');
-insert into unit_of_measure (uom) values ('cup');
-insert into unit_of_measure (uom) values ('pinch');
-insert into unit_of_measure (uom) values ('ounce');
-insert into unit_of_measure (uom) values ('pint');
-insert into unit_of_measure (uom) values ('number');
+insert into unit_of_measure (uom)
+values ('teaspoon');
+insert into unit_of_measure (uom)
+values ('tablespoon');
+insert into unit_of_measure (uom)
+values ('cup');
+insert into unit_of_measure (uom)
+values ('pinch');
+insert into unit_of_measure (uom)
+values ('ounce');
+insert into unit_of_measure (uom)
+values ('pint');
+insert into unit_of_measure (uom)
+values ('number');

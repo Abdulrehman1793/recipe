@@ -1,6 +1,7 @@
 package com.abdulrehman1793.recipe.domains;
 
 import jakarta.persistence.Entity;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -15,5 +16,6 @@ public class UnitOfMeasure extends BaseEntity {
         this.uom = uom;
     }
 
+    @NotNull(message = "Unit of measurement is required")
     private String uom;
 }

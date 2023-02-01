@@ -2,22 +2,28 @@ package com.abdulrehman1793.recipe.domains;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 
 @Data
 @EqualsAndHashCode(exclude = {"recipe"}, callSuper = true)
 @NoArgsConstructor
-@AllArgsConstructor
-@Builder(toBuilder = true)
+//@AllArgsConstructor
+//@Builder(toBuilder = true)
 @Entity
 @JsonIgnoreProperties("recipe")
 public class Ingredient extends BaseEntity {
-
-    public Ingredient(String description, BigDecimal amount, UnitOfMeasure unitOfMeasure) {
+    @Builder
+    public Ingredient(Long id, Long version, Timestamp createdDate, Timestamp lastModifiedDate, String description, BigDecimal amount, Recipe recipe, UnitOfMeasure unitOfMeasure) {
+        super(id, version, createdDate, lastModifiedDate);
         this.description = description;
         this.amount = amount;
+        this.recipe = recipe;
         this.unitOfMeasure = unitOfMeasure;
     }
 

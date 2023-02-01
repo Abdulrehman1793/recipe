@@ -5,17 +5,38 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
+import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Setter
 @Getter
 @EqualsAndHashCode(callSuper = true)
-@AllArgsConstructor
+//@AllArgsConstructor
 @NoArgsConstructor
-@Builder(toBuilder = true)
+//@Builder(toBuilder = true)
 @Entity
 public class Recipe extends BaseEntityUUID {
+    @Builder
+    public Recipe(UUID id, Long version, Timestamp createdDate, Timestamp lastModifiedDate, String title, String subTitle, String description, Integer prepTime, Integer cookTime, Integer servings, String source, String url, Note note, Set<Ingredient> ingredients, Set<PreparationSteps> preparationSteps, Set<Images> images, Difficulty difficulty, Set<Category> categories) {
+        super(id, version, createdDate, lastModifiedDate);
+        this.title = title;
+        this.subTitle = subTitle;
+        this.description = description;
+        this.prepTime = prepTime;
+        this.cookTime = cookTime;
+        this.servings = servings;
+        this.source = source;
+        this.url = url;
+        this.note = note;
+        this.ingredients = ingredients;
+        this.preparationSteps = preparationSteps;
+        this.images = images;
+        this.difficulty = difficulty;
+        this.categories = categories;
+    }
+
     @NotBlank
     private String title;
 

@@ -22,8 +22,9 @@ public class UnitOfMeasureServiceImpl implements UnitOfMeasureService {
     private final UnitOfMeasureMapper unitOfMeasureMapper;
 
     @Override
-    public UnitOfMeasure findById(Long id) {
-        return findByIdOrElseThrow(id);
+    public UnitOfMeasureResponse findById(Long id) {
+        return unitOfMeasureMapper
+                .unitOfMeasureToUnitOfMeasureResponse(findByIdOrElseThrow(id));
     }
 
     @Override
@@ -43,16 +44,18 @@ public class UnitOfMeasureServiceImpl implements UnitOfMeasureService {
     }
 
     @Override
-    public UnitOfMeasure create(String uom) {
+    public UnitOfMeasureResponse create(String uom) {
         unitOfMeasureRepository.findByUom(uom).ifPresent(unitOfMeasure -> {
             throw new BadRequestException("Unit of measures already exists.");
         });
 
-        return unitOfMeasureRepository.save(new UnitOfMeasure(uom));
+        UnitOfMeasure unitOfMeasure = unitOfMeasureRepository.save(UnitOfMeasure.builder().uom(uom).build());
+
+        return unitOfMeasureMapper.unitOfMeasureToUnitOfMeasureResponse(unitOfMeasure);
     }
 
     @Override
-    public UnitOfMeasure update(Long id, String uomText) {
+    public UnitOfMeasureResponse update(Long id, String uomText) {
         UnitOfMeasure uom = findByIdOrElseThrow(id);
 
         if (uomText.equalsIgnoreCase(uom.getUom())) {
@@ -65,7 +68,9 @@ public class UnitOfMeasureServiceImpl implements UnitOfMeasureService {
 
         uom.setUom(uomText);
 
-        return unitOfMeasureRepository.save(uom);
+        UnitOfMeasure unitOfMeasure = unitOfMeasureRepository.save(uom);
+
+        return unitOfMeasureMapper.unitOfMeasureToUnitOfMeasureResponse(unitOfMeasure);
     }
 
     @Override

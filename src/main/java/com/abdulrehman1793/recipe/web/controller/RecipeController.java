@@ -1,10 +1,10 @@
 package com.abdulrehman1793.recipe.web.controller;
 
-import com.abdulrehman1793.recipe.domains.Recipe;
 import com.abdulrehman1793.recipe.services.RecipeService;
 import com.abdulrehman1793.recipe.util.AppConstant;
 import com.abdulrehman1793.recipe.util.ControllerHelperService;
 import com.abdulrehman1793.recipe.web.models.request.RecipeRequest;
+import com.abdulrehman1793.recipe.web.models.response.RecipeResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +31,7 @@ public class RecipeController {
     private final ControllerHelperService controllerHelperService;
 
     @GetMapping
-    public ResponseEntity<Page<Recipe>> findPage(
+    public ResponseEntity<Page<RecipeResponse>> findPage(
             @RequestParam(value = "page", defaultValue = AppConstant.PAGE, required = false) int page,
             @RequestParam(value = "size", defaultValue = AppConstant.SIZE, required = false) int size,
             @RequestParam(value = "sort", defaultValue = "", required = false) String[] sorts) {
@@ -44,20 +44,20 @@ public class RecipeController {
     }
 
     @GetMapping("/load")
-    public ResponseEntity<Page<Recipe>> loadPage(
+    public ResponseEntity<Page<RecipeResponse>> loadPage(
             @PageableDefault(page = 0, size = 10)
             @SortDefault.SortDefaults(@SortDefault(sort = "id", direction = Sort.Direction.DESC)) Pageable pageable) {
         return ResponseEntity.ok(recipeService.findPage(pageable));
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Recipe> findRecipeById(@PathVariable UUID id) {
+    public ResponseEntity<RecipeResponse> findRecipeById(@PathVariable UUID id) {
         return ResponseEntity.ok(recipeService.findRecipeById(id));
     }
 
 
     @PostMapping
-    public ResponseEntity<Recipe> createRecipe(@RequestBody @Valid RecipeRequest recipeRequest) {
+    public ResponseEntity<RecipeResponse> createRecipe(@RequestBody @Valid RecipeRequest recipeRequest) {
         return ResponseEntity.ok(recipeService.createRecipe(recipeRequest));
     }
 }

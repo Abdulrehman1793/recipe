@@ -6,6 +6,7 @@ import com.abdulrehman1793.recipe.repositories.RecipeRepository;
 import com.abdulrehman1793.recipe.services.RecipeService;
 import com.abdulrehman1793.recipe.web.mappers.RecipeMapper;
 import com.abdulrehman1793.recipe.web.models.request.RecipeRequest;
+import com.abdulrehman1793.recipe.web.models.response.RecipeResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,17 +21,19 @@ public class RecipeServiceImpl implements RecipeService {
     private final RecipeMapper recipeMapper;
 
     @Override
-    public Page<Recipe> findPage(Pageable pageable) {
-        return recipeRepository.findAll(pageable);
+    public Page<RecipeResponse> findPage(Pageable pageable) {
+        return recipeRepository.findAll(pageable).map(recipeMapper::recipeToRecipeResponse);
+    }
+
+
+    @Override
+    public RecipeResponse findRecipeById(UUID id) {
+        return recipeRepository.findById(id).map(recipeMapper::recipeToRecipeResponse)
+                .orElseThrow(() -> new NoSuchElementFoundException("Recipe not found for " + id));
     }
 
     @Override
-    public Recipe findRecipeById(UUID id) {
-        return recipeRepository.findById(id).orElseThrow(() -> new NoSuchElementFoundException("Recipe not found for " + id));
-    }
-
-    @Override
-    public Recipe createRecipe(RecipeRequest recipeRequest) {
+    public RecipeResponse createRecipe(RecipeRequest recipeRequest) {
 
         Recipe recipe = recipeMapper.recipeRequestToRecipe(recipeRequest);
 
@@ -38,6 +41,8 @@ public class RecipeServiceImpl implements RecipeService {
             System.out.println("Check duplicate title error");
         }
 
-        return recipeRepository.save(recipe);
+        recipe = recipeRepository.save(recipe);
+
+        return recipeMapper.recipeToRecipeResponse(recipe);
     }
 }

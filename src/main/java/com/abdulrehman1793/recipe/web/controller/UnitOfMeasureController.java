@@ -22,12 +22,12 @@ public class UnitOfMeasureController {
     }
 
     @PostMapping
-    public ResponseEntity<UnitOfMeasure> create(@RequestBody UnitOfMeasure uom) {
+    public ResponseEntity<UnitOfMeasureResponse> create(@RequestBody UnitOfMeasure uom) {
         return ResponseEntity.ok(unitOfMeasureService.create(uom.getUom()));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UnitOfMeasure> update(@PathVariable Long id, @RequestBody UnitOfMeasure uom) {
+    public ResponseEntity<UnitOfMeasureResponse> update(@PathVariable Long id, @RequestBody UnitOfMeasure uom) {
         return ResponseEntity.ok(unitOfMeasureService.update(id, uom.getUom()));
     }
 

@@ -14,7 +14,7 @@ import java.util.Set;
 @Builder(toBuilder = true)
 @JsonIgnoreProperties("recipe")
 @Entity
-public class PreparationSteps extends BaseEntityUUID {
+public class PreparationSteps extends BaseEntity {
     private int priority;
 
     private String title;

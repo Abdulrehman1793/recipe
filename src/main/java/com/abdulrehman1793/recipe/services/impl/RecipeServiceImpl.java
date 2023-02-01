@@ -35,7 +35,6 @@ public class RecipeServiceImpl implements RecipeService {
         Recipe recipe = recipeMapper.recipeRequestToRecipe(recipeRequest);
 
         if (recipe.getTitle().isEmpty()) {
-//
             System.out.println("Check duplicate title error");
         }
 

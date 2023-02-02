@@ -7,7 +7,7 @@ import java.util.List;
 public interface UnitOfMeasureService {
     UnitOfMeasureResponse findById(Long id);
 
-    List<UnitOfMeasureResponse> findAll(String uom);
+    List<UnitOfMeasureResponse> findAll(String keyword);
 
     UnitOfMeasureResponse create(String uom);
 

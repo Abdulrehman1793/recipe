@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,10 +19,12 @@ import java.util.Set;
 @JsonIgnoreProperties("recipes")
 @Entity
 public class Category extends BaseEntity {
-    @Builder(toBuilder = true)
-    public Category(String title, String description) {
+    @Builder
+    public Category(Long id, Long version, Timestamp createdDate, Timestamp lastModifiedDate, String title, String description, Set<Recipe> recipes) {
+        super(id, version, createdDate, lastModifiedDate);
         this.title = title;
         this.description = description;
+        this.recipes = recipes;
     }
 
     @NotNull

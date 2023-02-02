@@ -11,8 +11,6 @@ import java.sql.Timestamp;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-//@AllArgsConstructor
-//@Builder(toBuilder = true)
 @NoArgsConstructor
 @Entity
 public class UnitOfMeasure extends BaseEntity {

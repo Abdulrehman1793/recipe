@@ -10,6 +10,7 @@ import com.abdulrehman1793.recipe.repositories.UnitOfMeasureRepository;
 import com.abdulrehman1793.recipe.web.mappers.IngredientMapper;
 import com.abdulrehman1793.recipe.web.models.request.IngredientRequest;
 import com.abdulrehman1793.recipe.web.models.response.IngredientResponse;
+import com.abdulrehman1793.recipe.web.models.response.UnitOfMeasureResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -147,7 +148,7 @@ class IngredientServiceImplTest {
 
         when(unitOfMeasureRepository.findById(9L)).thenReturn(Optional.of(uom));
 
-        //TODO: stub
+        //TODO: stub object of Ingredient to service -> any() to requestToEntity
         when(ingredientRepository.save(any())).thenReturn(any());
 
         cut.addRecipeIngredient(uuid, request);
@@ -158,6 +159,79 @@ class IngredientServiceImplTest {
     }
 
     @Test
-    void updateRecipeIngredient() {
+    @DisplayName("updateIngredient-should throw on invalid ingredient id")
+    void shouldThrowOnInvalidIngredientId() {
+        when(ingredientRepository.findById(1L)).thenReturn(Optional.empty());
+
+        assertThrows(NoSuchElementFoundException.class,
+                () -> cut.updateRecipeIngredient(1L, IngredientRequest.builder().build()));
+
+        verify(ingredientRepository).findById(any());
+        verifyNoInteractions(unitOfMeasureRepository);
+        verifyNoMoreInteractions(ingredientRepository);
+        verifyNoInteractions(ingredientMapper);
+    }
+
+    @Test
+    @DisplayName("updateIngredient-should throw on invalid uom")
+    void shouldThrowOnInvalidUOMOnUpdate() {
+        when(ingredientRepository.findById(1L)).thenReturn(Optional.of(Ingredient.builder().build()));
+
+        when(unitOfMeasureRepository.findById(1L)).thenReturn(Optional.empty());
+
+        assertThrows(NoSuchElementFoundException.class,
+                () -> cut.updateRecipeIngredient(1L, IngredientRequest.builder().uomId(1L).build()));
+
+        verify(ingredientRepository).findById(any());
+        verify(unitOfMeasureRepository).findById(anyLong());
+        verifyNoMoreInteractions(ingredientRepository);
+        verifyNoInteractions(ingredientMapper);
+    }
+
+    @Test
+    @DisplayName("updateIngredient-should update & return")
+    void shouldUpdateAndReturn() {
+        Long ingredientId = 63L;
+        Long uomId = 42L;
+
+        UnitOfMeasure uom = UnitOfMeasure.builder().id(uomId).build();
+
+        Ingredient ingredient = Ingredient.builder()
+                .description("salt")
+                .id(ingredientId)
+                .unitOfMeasure(uom).build();
+
+
+        when(ingredientRepository.findById(ingredientId)).thenReturn(Optional.of(ingredient));
+
+        when(unitOfMeasureRepository.findById(uomId)).thenReturn(Optional.of(uom));
+
+        when(ingredientRepository.save(ingredient))
+                .thenReturn(ingredient);
+
+        when(ingredientMapper.ingredientToIngredientResponse(ingredient)).thenAnswer(invocation -> {
+            Ingredient savedIngredient = invocation.getArgument(0, Ingredient.class);
+            UnitOfMeasure savedUOM = savedIngredient.getUnitOfMeasure();
+            return IngredientResponse.builder()
+                    .unitOfMeasure(
+                            new UnitOfMeasureResponse(savedUOM.getId(), savedUOM.getUom()))
+                    .description(savedIngredient.getDescription())
+                    .id(savedIngredient.getId())
+                    .build();
+        });
+
+
+        IngredientResponse response = cut.updateRecipeIngredient(ingredientId,
+                IngredientRequest.builder().description("New salt").uomId(uomId).build());
+
+        assertNotNull(response);
+        assertEquals(response.getDescription(), "New salt");
+
+        InOrder inOrder = inOrder(ingredientRepository, unitOfMeasureRepository, ingredientMapper);
+
+        inOrder.verify(ingredientRepository).findById(any());
+        inOrder.verify(unitOfMeasureRepository).findById(anyLong());
+        inOrder.verify(ingredientRepository).save(any(Ingredient.class));
+        inOrder.verify(ingredientMapper).ingredientToIngredientResponse(any(Ingredient.class));
     }
 }

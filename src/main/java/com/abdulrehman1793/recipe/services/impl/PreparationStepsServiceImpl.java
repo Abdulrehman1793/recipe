@@ -40,12 +40,16 @@ public class PreparationStepsServiceImpl implements PreparationStepsService {
         Recipe recipe = recipeRepository.findById(recipeId)
                 .orElseThrow(() -> new NoSuchElementFoundException("Recipe not found for " + recipeId));
 
-        PreparationSteps preparationSteps = PreparationSteps.builder()
-                .description(preparationStepRequest.getDescription())
-                .title(preparationStepRequest.getTitle())
-                .priority(recipe.getPreparationSteps().size())
-                .recipe(recipe)
-                .build();
+//        PreparationSteps preparationSteps = PreparationSteps.builder()
+//                .description(preparationStepRequest.getDescription())
+//                .title(preparationStepRequest.getTitle())
+//                .priority(recipe.getPreparationSteps().size())
+//                .recipe(recipe)
+//                .build();
+
+        PreparationSteps preparationSteps = preparationStepMapper.preparationStepRequestToPreparationStep(preparationStepRequest);
+        preparationSteps.setRecipe(recipe);
+        preparationSteps.setPriority(recipe.getPreparationSteps().size());
 
         preparationSteps = preparationStepsRepository.save(preparationSteps);
 

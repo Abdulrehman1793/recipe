@@ -13,27 +13,31 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/category")
 public class CategoryController {
+
+    public static final String CATEGORY_PATH = "/api/v2/category";
+    public static final String CATEGORY_PATH_ID = CATEGORY_PATH + "/{categoryId}";
     private final CategoryService categoryService;
 
-    @GetMapping
+    @GetMapping(CATEGORY_PATH)
     public ResponseEntity<List<CategoryResponse>> findAll(@Param("keyword") String keyword) {
         return ResponseEntity.ok(categoryService.findAll(keyword));
     }
 
-    @PostMapping
+    @PostMapping(CATEGORY_PATH)
     public ResponseEntity<CategoryResponse> create(@RequestBody @Valid CategoryRequest categoryRequest) {
         return ResponseEntity.ok(categoryService.create(categoryRequest));
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<CategoryResponse> update(@PathVariable Long id, @RequestBody @Valid CategoryRequest categoryRequest) {
-        return ResponseEntity.ok(categoryService.update(id, categoryRequest));
+    @PutMapping(CATEGORY_PATH_ID)
+    public ResponseEntity<CategoryResponse> update(
+            @PathVariable("categoryId") Long categoryId,
+            @RequestBody @Valid CategoryRequest categoryRequest) {
+        return ResponseEntity.ok(categoryService.update(categoryId, categoryRequest));
     }
 
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable("id") Long id) {
-        categoryService.delete(id);
+    @DeleteMapping(CATEGORY_PATH_ID)
+    public void delete(@PathVariable("categoryId") Long categoryId) {
+        categoryService.delete(categoryId);
     }
 }

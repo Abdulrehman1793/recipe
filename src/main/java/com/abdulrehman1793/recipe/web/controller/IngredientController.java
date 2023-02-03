@@ -12,23 +12,26 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/ingredient")
 public class IngredientController {
+
+    public static final String INGREDIENT_PATH = "/api/v2/ingredient";
+    public static final String INGREDIENT_PATH_ID = INGREDIENT_PATH + "/{id}";
+
     private final IngredientService ingredientService;
 
-    @GetMapping("/{recipeId}")
+    @GetMapping(INGREDIENT_PATH + "/{recipeId}")
     public List<IngredientResponse> findRecipeIngredients(@PathVariable UUID recipeId) {
         return ingredientService.findAllRecipeIngredient(recipeId);
     }
 
-    @PostMapping("/{recipeId}")
+    @PostMapping(INGREDIENT_PATH + "/{recipeId}")
     public IngredientResponse addIngredient(
             @PathVariable("recipeId") UUID id,
             @RequestBody @Valid IngredientRequest ingredientRequest) {
         return ingredientService.addRecipeIngredient(id, ingredientRequest);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping(INGREDIENT_PATH_ID)
     public IngredientResponse updateIngredient(
             @PathVariable("id") Long id,
             @RequestBody @Valid IngredientRequest ingredientRequest) {

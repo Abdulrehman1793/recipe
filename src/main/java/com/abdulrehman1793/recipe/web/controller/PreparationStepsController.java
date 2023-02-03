@@ -12,23 +12,25 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/steps")
 public class PreparationStepsController {
+
+    public static final String PREP_STEP_PATH = "/api/v2/steps";
+    public static final String PREP_STEP_PATH_ID = PREP_STEP_PATH + "/{id}";
     private final PreparationStepsService preparationStepsService;
 
-    @GetMapping("/{recipeId}")
+    @GetMapping(PREP_STEP_PATH + "/{recipeId}")
     public List<PreparationStepResponse> findRecipeIngredients(@PathVariable UUID recipeId) {
         return preparationStepsService.findAllRecipePreparationSteps(recipeId);
     }
 
-    @PostMapping("/{recipeId}")
+    @PostMapping(PREP_STEP_PATH + "/{recipeId}")
     public PreparationStepResponse addIngredient(
             @PathVariable("recipeId") UUID id,
             @RequestBody @Valid PreparationStepRequest preparationStepRequest) {
         return preparationStepsService.addRecipePreparationStep(id, preparationStepRequest);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping(PREP_STEP_PATH_ID)
     public PreparationStepResponse updateIngredient(
             @PathVariable("id") Long id,
             @RequestBody @Valid PreparationStepRequest preparationStepRequest) {

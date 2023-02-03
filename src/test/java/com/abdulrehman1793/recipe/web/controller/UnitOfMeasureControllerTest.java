@@ -44,7 +44,7 @@ class UnitOfMeasureControllerTest {
                 List.of(new UnitOfMeasureResponse(9L, "pinch"),
                         new UnitOfMeasureResponse(31L, "two pinch")));
 
-        mockMvc.perform(get("/uom").param("keyword", keyword)
+        mockMvc.perform(get(UnitOfMeasureController.UOM_PATH).param("keyword", keyword)
                         .header(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -66,7 +66,7 @@ class UnitOfMeasureControllerTest {
                         new UnitOfMeasureResponse(3L, "teaspoon"),
                         new UnitOfMeasureResponse(4L, "uom")));
 
-        mockMvc.perform(get("/uom").param("keyword", keyword)
+        mockMvc.perform(get(UnitOfMeasureController.UOM_PATH).param("keyword", keyword)
                         .header(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -83,7 +83,7 @@ class UnitOfMeasureControllerTest {
         String keyword = " ";
         when(unitOfMeasureService.findAll(keyword)).thenReturn(List.of());
 
-        mockMvc.perform(get("/uom").param("keyword", keyword)
+        mockMvc.perform(get(UnitOfMeasureController.UOM_PATH).param("keyword", keyword)
                         .header(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -108,7 +108,7 @@ class UnitOfMeasureControllerTest {
     })
     @DisplayName("create- validation error")
     void create(String request) throws Exception {
-        mockMvc.perform(post("/uom")
+        mockMvc.perform(post(UnitOfMeasureController.UOM_PATH)
                         .content(request)
                         .contentType(MediaType.APPLICATION_JSON)
                         .header(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON))
@@ -125,7 +125,7 @@ class UnitOfMeasureControllerTest {
         String uomText = "teaspoon";
         when(unitOfMeasureService.create(uomText)).thenReturn(new UnitOfMeasureResponse(55L, uomText));
 
-        mockMvc.perform(post("/uom")
+        mockMvc.perform(post(UnitOfMeasureController.UOM_PATH)
                         .content("""
                                 {
                                     "uom":"teaspoon"
@@ -156,7 +156,7 @@ class UnitOfMeasureControllerTest {
     })
     @DisplayName("update- validation error")
     void update(String request) throws Exception {
-        mockMvc.perform(put("/uom/1")
+        mockMvc.perform(put(UnitOfMeasureController.UOM_PATH + "/1")
                         .content(request)
                         .contentType(MediaType.APPLICATION_JSON)
                         .header(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON))
@@ -170,7 +170,7 @@ class UnitOfMeasureControllerTest {
     @Order(7)
     @DisplayName("update-should raise exception on invalid path variable")
     void updateError() throws Exception {
-        mockMvc.perform(put("/uom/test")
+        mockMvc.perform(put(UnitOfMeasureController.UOM_PATH + "/test")
                         .content("""
                                 {"uom":"teaspoon"}
                                 """)
@@ -191,7 +191,7 @@ class UnitOfMeasureControllerTest {
         String uomText = "teaspoon";
         when(unitOfMeasureService.update(uomId, uomText)).thenReturn(new UnitOfMeasureResponse(uomId, uomText));
 
-        mockMvc.perform(put("/uom/" + uomId)
+        mockMvc.perform(put(UnitOfMeasureController.UOM_PATH + "/" + uomId)
                         .content("""
                                 {
                                     "uom":"teaspoon"
@@ -210,7 +210,7 @@ class UnitOfMeasureControllerTest {
     @Test
     @Order(9)
     void deleteFail() throws Exception {
-        mockMvc.perform(delete("/uom/test")
+        mockMvc.perform(delete(UnitOfMeasureController.UOM_PATH + "/test")
                         .header(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON))
                 .andExpect(status().is4xxClientError())
                 .andDo(print());
@@ -224,7 +224,7 @@ class UnitOfMeasureControllerTest {
         Long uomId = 33L;
         doNothing().when(unitOfMeasureService).delete(uomId);
 
-        mockMvc.perform(delete("/uom/" + uomId)
+        mockMvc.perform(delete(UnitOfMeasureController.UOM_PATH + "/" + uomId)
                         .header(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andDo(print());

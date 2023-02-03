@@ -13,27 +13,30 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/uom")
 public class UnitOfMeasureController {
+
+    public static final String UOM_PATH = "/api/v2/uom";
+    public static final String UOM_PATH_ID = UOM_PATH + "/{uomId}";
+
     private final UnitOfMeasureService unitOfMeasureService;
 
-    @GetMapping
+    @GetMapping(UOM_PATH)
     public List<UnitOfMeasureResponse> findAll(@Param("keyword") String keyword) {
         return unitOfMeasureService.findAll(keyword);
     }
 
-    @PostMapping
+    @PostMapping(UOM_PATH)
     public ResponseEntity<UnitOfMeasureResponse> create(@RequestBody @Valid UnitOfMeasure uom) {
         return ResponseEntity.ok(unitOfMeasureService.create(uom.getUom()));
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<UnitOfMeasureResponse> update(@PathVariable Long id, @RequestBody @Valid UnitOfMeasure uom) {
-        return ResponseEntity.ok(unitOfMeasureService.update(id, uom.getUom()));
+    @PutMapping(UOM_PATH_ID)
+    public ResponseEntity<UnitOfMeasureResponse> update(@PathVariable("uomId") Long uomId, @RequestBody @Valid UnitOfMeasure uom) {
+        return ResponseEntity.ok(unitOfMeasureService.update(uomId, uom.getUom()));
     }
 
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable("id") Long id) {
-        unitOfMeasureService.delete(id);
+    @DeleteMapping(UOM_PATH_ID)
+    public void delete(@PathVariable("uomId") Long uomId) {
+        unitOfMeasureService.delete(uomId);
     }
 }

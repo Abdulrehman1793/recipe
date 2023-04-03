@@ -13,4 +13,6 @@ public interface RecipeService {
     RecipeResponse findRecipeById(UUID id);
 
     RecipeResponse createRecipe(RecipeRequest recipeRequest);
+
+    RecipeResponse updateRecipe(UUID id, RecipeRequest recipeRequest);
 }

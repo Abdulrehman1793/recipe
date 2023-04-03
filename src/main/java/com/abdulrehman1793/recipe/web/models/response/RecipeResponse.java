@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Set;
 import java.util.UUID;
 
 @Data
@@ -17,4 +18,5 @@ public class RecipeResponse {
     private Integer prepTime;
     private Integer cookTime;
     private Integer servings;
+    private Set<CategoryResponse> categories;
 }

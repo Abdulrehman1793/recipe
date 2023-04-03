@@ -60,4 +60,10 @@ public class RecipeController {
     public ResponseEntity<RecipeResponse> createRecipe(@RequestBody @Valid RecipeRequest recipeRequest) {
         return ResponseEntity.ok(recipeService.createRecipe(recipeRequest));
     }
+
+    @PutMapping("/{recipe-id}")
+    public ResponseEntity<RecipeResponse> updateRecipe(
+            @RequestBody @Valid RecipeRequest recipeRequest, @PathVariable("recipe-id") UUID recipeId) {
+        return ResponseEntity.ok(recipeService.updateRecipe(recipeId, recipeRequest));
+    }
 }

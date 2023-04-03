@@ -64,10 +64,10 @@ public class Recipe extends BaseEntityUUID {
     private Difficulty difficulty;
 
     @ManyToMany
-    @JoinTable(name = "recipe_category",
+    @JoinTable(name = "recipe_categories",
             joinColumns = @JoinColumn(name = "recipe_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id"))
-    private Set<Category> categories = new HashSet<>();
+    private Set<Category> categories;
 
     public void addIngredient(Ingredient ingredient) {
         ingredient.setRecipe(this);

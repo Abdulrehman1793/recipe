@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -39,6 +40,18 @@ public class CategoryServiceImpl implements CategoryService {
 
         return categories.stream()
                 .map(categoryMapper::categoryToCategoryResponse).toList();
+    }
+
+    @Override
+    public List<Category> findAllByIds(List<Long> ids) {
+
+        List<Category> categories = categoryRepository.findAllById(ids);
+
+        if (categories.size() != ids.size()) {
+            throw new BadRequestException("Category doesn't exists for given id's.");
+        }
+
+        return categories;
     }
 
     @Override

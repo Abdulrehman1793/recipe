@@ -6,6 +6,8 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class RecipeRequest {
     @NotBlank(message = "Recipe title is required")
@@ -25,4 +27,6 @@ public class RecipeRequest {
     private Integer servings;
 
     private Difficulty difficulty;
+
+    private List<Long> categories;
 }

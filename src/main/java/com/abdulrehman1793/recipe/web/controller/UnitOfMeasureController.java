@@ -15,8 +15,8 @@ import java.util.List;
 @RestController
 public class UnitOfMeasureController {
 
-    public static final String UOM_PATH = "/api/v2/uom";
-    public static final String UOM_PATH_ID = UOM_PATH + "/{uomId}";
+    public static final String UOM_PATH = "/api/v2/uom/";
+    public static final String UOM_PATH_ID = UOM_PATH + "{uomId}";
 
     private final UnitOfMeasureService unitOfMeasureService;
 

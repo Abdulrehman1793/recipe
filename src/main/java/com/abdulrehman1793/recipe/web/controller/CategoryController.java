@@ -15,8 +15,8 @@ import java.util.List;
 @RestController
 public class CategoryController {
 
-    public static final String CATEGORY_PATH = "/api/v2/category";
-    public static final String CATEGORY_PATH_ID = CATEGORY_PATH + "/{categoryId}";
+    public static final String CATEGORY_PATH = "/api/v2/category/";
+    public static final String CATEGORY_PATH_ID = CATEGORY_PATH + "{categoryId}";
     private final CategoryService categoryService;
 
     @GetMapping(CATEGORY_PATH)

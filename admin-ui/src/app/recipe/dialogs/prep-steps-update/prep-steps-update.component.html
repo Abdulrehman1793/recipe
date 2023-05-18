@@ -1,0 +1,35 @@
+<h1 mat-dialog-title>{{title}}</h1>
+<div mat-dialog-content>
+  <p>Preparation step to be used in recipe</p>
+  <form [formGroup]="form">
+    <mat-form-field appearance="outline">
+      <mat-label>Preparation step title</mat-label>
+      <input matInput formControlName="title" placeholder="Enter short preparation step title">
+      <mat-error *ngIf="form.controls.title.hasError('required')">Title is required.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Details</mat-label>
+      <textarea matInput formControlName="description" placeholder="Enter in detail about preparation step"></textarea>
+      <mat-error>Preparation step description is required</mat-error>
+    </mat-form-field>
+
+    <input type="file" #fileUpload (change)="onUploadFile($event.target!)" hidden multiple />
+    <div (click)="fileUpload.click()"
+      style="display: block; height: 50px; width: 100%; border: 1px dotted gray; border-radius: 9px;">
+      <div style="padding: 12px;">
+        Click anywhere to upload
+      </div>
+    </div>
+
+    <div *ngIf="imagesUrl.length>0" style="margin-top: 12px; display: flex; flex-direction: row; gap: 9px;">
+      <div *ngFor="let imageUrl of imagesUrl">
+        <img height="100" width="100" [src]="imageUrl" *ngIf="imageUrl" />
+      </div>
+    </div>
+  </form>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button color="warn" mat-dialog-close>Cancel</button>
+  <button mat-button color="primary" (click)="onSave()" cdkFocusInitial>Ok</button>
+</div>

@@ -1,0 +1,90 @@
+<div>
+  <div class="wrapper">
+    <form [formGroup]="form">
+      <div style="display: flex; gap:6px;">
+        <div style="flex: 1;">
+          <mat-form-field appearance="fill">
+            <mat-label>Choose difficulty level to cook this recipe</mat-label>
+            <mat-select formControlName="difficulty">
+              <mat-option value="EASY">Easy</mat-option>
+              <mat-option value="MEDIUM">Medium</mat-option>
+              <mat-option value="HARD">HARD</mat-option>
+              <mat-option value="EXPERT">Expert</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Categories</mat-label>
+          <mat-select formControlName="categories" multiple>
+            <mat-option *ngFor="let category of categories$ | async"
+              [value]="category.id">{{category.title}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <!-- <button mat-button (click)="onCategory()">Categories</button> -->
+      <!--  -->
+      <mat-form-field appearance="outline">
+        <mat-label>Recipe title</mat-label>
+        <input matInput placeholder="Enter short and unique recipe title" formControlName="title">
+        <mat-error>Recipe title is required</mat-error>
+      </mat-form-field>
+      <!--  -->
+      <mat-form-field appearance="outline">
+        <mat-label>Recipe sub-title</mat-label>
+        <textarea matInput placeholder="Enter recipe sub-title to summarize the recipe"
+          formControlName="subTitle"></textarea>
+        <mat-error>Recipe sub-title is required</mat-error>
+      </mat-form-field>
+      <!--  -->
+      <div style="display: flex; gap: 6px;">
+        <mat-form-field appearance="outline">
+          <mat-label>Preparation Time</mat-label>
+          <input matInput type="number" formControlName="prepTime" min="0" max="14400"
+            placeholder="Time taken to prepare this recipe (in minutes)">
+          <mat-hint>Time taken to prepare this recipe (in minutes)</mat-hint>
+          <mat-error *ngIf="form.controls.prepTime.hasError('min') || form.controls.prepTime.hasError('required')">
+            Negative or empty value is not allowed.
+          </mat-error>
+          <mat-error *ngIf="form.controls.prepTime.hasError('max')">
+            Maximum time to prepare for any dish is 10 days.
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Cooking Time (in minutes)</mat-label>
+          <input matInput type="number" min="0" max="14400" formControlName="cookTime"
+            placeholder="Time taken to cook this recipe (in minutes)">
+          <mat-hint>Time taken to cook this recipe (in minutes)</mat-hint>
+          <mat-error *ngIf="form.controls.cookTime.hasError('min') || form.controls.cookTime.hasError('required')">
+            At least one minute is needed to cook any recipe.
+          </mat-error>
+          <mat-error *ngIf="form.controls.cookTime.hasError('max')">
+            Maximum time to cook any dish is 10 days.
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Serve</mat-label>
+          <input matInput type="number" min="0" max="1000" formControlName="servings"
+            placeholder="How many people will be served">
+          <mat-hint>How many people will be served</mat-hint>
+          <mat-error *ngIf="form.controls.servings.hasError('min') || form.controls.servings.hasError('required')">
+            At least one person should be served.
+          </mat-error>
+          <mat-error *ngIf="form.controls.servings.hasError('max')">
+            Maximum person to be served should not exceed 1000.
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <!--  -->
+      <br /><br />
+      <mat-form-field appearance="outline">
+        <mat-label>Recipe content</mat-label>
+        <textarea matInput placeholder="Enter detail about recipe" formControlName="description"></textarea>
+        <mat-error>Recipe is content</mat-error>
+      </mat-form-field>
+
+    </form>
+    <button mat-button color="warn" (click)="onCancel()">Cancel</button>
+    <button mat-raised-button color="primary" (click)="onSave()">Save</button>
+  </div>
+</div>

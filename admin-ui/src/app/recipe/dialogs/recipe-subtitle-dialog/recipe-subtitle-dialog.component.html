@@ -1,0 +1,14 @@
+<h1 mat-dialog-title>Update Recipe sub-title</h1>
+
+<div mat-dialog-content>
+  <div style="padding: 12px;">
+    <mat-form-field appearance="outline">
+      <mat-label>Recipe Sub-title</mat-label>
+      <input matInput [formControl]="subTitle">
+    </mat-form-field>
+  </div>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button (click)="onUpdate()" cdkFocusInitial>Update</button>
+</div>

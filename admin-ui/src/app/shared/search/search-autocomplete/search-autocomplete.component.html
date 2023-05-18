@@ -1,0 +1,19 @@
+<mat-form-field class="example-chip-list" appearance="fill">
+  <mat-label>Select search parameter</mat-label>
+  <mat-chip-grid #chipGrid aria-label="Search selection">
+    <mat-chip-row *ngFor="let selectedSearchField of selectedSearchFields" (removed)="remove(selectedSearchField)">
+      {{selectedSearchField.name|titlecase}}
+      <button matChipRemove [attr.aria-label]="'remove ' + selectedSearchField.name">
+        <mat-icon>cancel</mat-icon>
+      </button>
+    </mat-chip-row>
+    <input placeholder="Search fields..." #searchInput [formControl]="searchCtrl" [matChipInputFor]="chipGrid"
+      [matAutocomplete]="auto" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+      (matChipInputTokenEnd)="add($event)" />
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+      <mat-option *ngFor="let unSelectedSearchField of unSelectedSearchFields" [value]="unSelectedSearchField.name">
+        {{unSelectedSearchField.name|titlecase}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-chip-grid>
+</mat-form-field>

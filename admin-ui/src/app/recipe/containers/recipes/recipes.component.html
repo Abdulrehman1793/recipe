@@ -1,0 +1,6 @@
+<app-search-autocomplete></app-search-autocomplete>
+
+<app-table #recipeTable [rows]="recipes" [columns]="recipeCustomColumns" [loading]="loading" [error]="error"
+  [totalElements]="resultLenght" (onAdd)="onCreate()" (onUpate)="onUpdate($event)"
+  (onSortAndPageUpdate)="onSortAndPageUpdate($event)">
+</app-table>

@@ -1,0 +1,43 @@
+<mat-toolbar>
+  <span *ngIf="recipe$ | async as recipe; else noRecipe;">
+    Edit recipe - {{recipe.title}}
+  </span>
+  <ng-template #noRecipe>
+    New recipe
+  </ng-template>
+</mat-toolbar>
+<div style="margin-top: 12px;">
+  <div *ngIf="recipe$ | async as recipe; else newRecipePage;">
+    <div style="display: flex; gap: 6px;">
+      <div style="flex: 1;">
+        <mat-nav-list>
+          <mat-list-item [routerLink]="['./']" [activated]="tab==='recipe'" color="primary">Recipe
+            Content</mat-list-item>
+          <mat-list-item [routerLink]="['./']" [queryParams]="{tab:'ingredients'}"
+            [activated]="tab==='ingredients'">Ingredients</mat-list-item>
+          <mat-list-item [routerLink]="['./']" [queryParams]="{tab:'steps'}"
+            [activated]="tab==='steps'">Steps</mat-list-item>
+        </mat-nav-list>
+      </div>
+      <div style="flex: 4;">
+        <!-- Tab - 1: Recipe main content -->
+        <div *ngIf="tab==='recipe'">
+          <app-recipe-form [recipe]="recipe"> </app-recipe-form>
+        </div>
+        <!-- Tab - 2: Recipe ingredients -->
+        <div *ngIf="tab==='ingredients'">
+          <app-recipe-ingredients [recipe]="recipe"></app-recipe-ingredients>
+        </div>
+        <!-- Tab - 3: Steps to make recipe  -->
+        <div *ngIf="tab==='steps'">
+          <app-recipe-prep-steps [recipe]="recipe"></app-recipe-prep-steps>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #newRecipePage>
+    <div>
+      <app-recipe-form> </app-recipe-form>
+    </div>
+  </ng-template>
+</div>

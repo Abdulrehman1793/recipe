@@ -1,0 +1,25 @@
+<div style="display: flex; justify-content: space-between;">
+  <h3>Add recipe ingredients</h3>
+  <button mat-button (click)="onAdd()">Add</button>
+</div>
+<div *ngIf="ingredients$ | async as ingredients; else noData;">
+  <mat-list role="list">
+    <div *ngFor="let ingredient of ingredients">
+      <mat-list-item role="listitem">
+        <div matListItemTitle>{{ingredient.description}}</div>
+        <div matListItemLine>
+          {{ingredient.amount}} - {{ingredient.unitOfMeasure.uom}}
+        </div>
+        <div matListItemMeta>
+          <button mat-icon-button (click)="onEdit(ingredient)">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </div>
+      </mat-list-item>
+    </div>
+  </mat-list>
+</div>
+
+<ng-template #noData>
+  No data available
+</ng-template>

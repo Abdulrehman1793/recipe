@@ -1,0 +1,37 @@
+table {
+  width: 100%;
+}
+
+.mat-mdc-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+td,
+th {
+  width: 25%;
+}
+
+.container {
+  position: relative;
+}
+
+.table-container {
+  position: relative;
+  min-height: 200px;
+  max-height: 65vh;
+  overflow: auto;
+}
+
+.loading-shade {
+  position: absolute;
+  top: 56px;
+  left: 0;
+  bottom: 56px;
+  right: 0;
+  background: rgba(255, 255, 255, 0.8);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

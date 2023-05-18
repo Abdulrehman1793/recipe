@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>Hi {{searchFieldConfig.name | titlecase}}</h1>
+<div mat-dialog-content>
+  <mat-form-field class="example-full-width">
+    <mat-label>Title contains</mat-label>
+    <input type="text" matInput [formControl]="titleFormControl" placeholder="Enter string of title containe">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="{save:false}">Cancle</button>
+  <button mat-button (click)="onSearch()" cdkFocusInitial>Search</button>
+</div>

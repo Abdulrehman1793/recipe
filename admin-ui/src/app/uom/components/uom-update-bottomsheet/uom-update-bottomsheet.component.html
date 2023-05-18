@@ -1,0 +1,9 @@
+<div>
+  <mat-form-field style="width: 100%;">
+    <mat-label>Enter unit of measure</mat-label>
+    <input matInput placeholder="Enter unit of meassures" [formControl]="uomControl" />
+    <button mat-icon-button matSuffix (click)="saveOrUpdate()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </mat-form-field>
+</div>

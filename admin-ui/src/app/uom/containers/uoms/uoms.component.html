@@ -1,0 +1,24 @@
+<div style="margin-top: 6px;">
+  <div style="display: flex; justify-content: space-between;">
+    <div style="flex: 8;">
+      <mat-form-field appearance="outline">
+        <mat-label>Unit of measure</mat-label>
+        <input matInput [formControl]="uomFormControl" placeholder="Write unit of measure" />
+        <button mat-icon-button (click)="onSearch()" matSuffix>
+          <mat-icon>search</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+    <div>
+      <button mat-icon-button (click)="onAdd()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <mat-chip-listbox *ngIf="uoms$ | async as uoms" aria-label="List of uoms">
+    <mat-chip *ngFor="let uom of uoms" (click)="onUpdate(uom)">
+      {{uom.uom}}
+    </mat-chip>
+  </mat-chip-listbox>
+</div>

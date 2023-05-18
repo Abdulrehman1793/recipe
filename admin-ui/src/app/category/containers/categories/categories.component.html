@@ -1,0 +1,30 @@
+<div style="margin-top: 6px;">
+  <div>
+    <div style="display: flex; justify-content: space-between;">
+      <div style="flex: 8;">
+        <mat-form-field appearance="outline">
+          <mat-label>Serach category</mat-label>
+          <input matInput [formControl]="seacrhFormControl"
+            placeholder="Enter keyword to search by containing title or description" />
+          <button mat-icon-button (click)="onSearch()" matSuffix>
+            <mat-icon>search</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+      <div>
+        <button mat-icon-button (click)="onAdd()">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div>
+    <!-- List Of Categoru -->
+    <mat-chip-listbox *ngIf="categories$ | async as categories" aria-label="List of category">
+      <mat-chip *ngFor="let category of categories" (click)="onUpdate(category)"
+        [matTooltip]="category.description||''">
+        {{category.title}}
+      </mat-chip>
+    </mat-chip-listbox>
+  </div>
+</div>

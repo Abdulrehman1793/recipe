@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>Update Recipe</h1>
+
+<div mat-dialog-content>
+  <div style="padding: 12px;">
+    <app-recipe-form></app-recipe-form>
+  </div>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button (click)="onUpdate()" cdkFocusInitial>Update</button>
+</div>

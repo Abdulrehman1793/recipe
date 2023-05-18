@@ -1,0 +1,35 @@
+<h1 mat-dialog-title>{{title}}</h1>
+<div mat-dialog-content>
+  <p>Ingredient to be used in recipe</p>
+  <form [formGroup]="form">
+    <mat-form-field appearance="outline">
+      <mat-label>Ingredient description</mat-label>
+      <input matInput formControlName="description" placeholder="Enter brief about ingredient">
+      <mat-error>Ingredient description is required</mat-error>
+    </mat-form-field>
+
+    <div style="display: flex; gap:4px;">
+      <mat-form-field appearance="outline">
+        <mat-label>Amount to add in recipe</mat-label>
+        <input matInput type="number" formControlName="amount" min="1" max="100000">
+        <mat-error *ngIf="form.controls.amount.hasError('required')">Amount is required.</mat-error>
+        <mat-error *ngIf="form.controls.amount.hasError('min')">Minimum amount should be 1</mat-error>
+        <mat-error *ngIf="form.controls.amount.hasError('max')">Maximum amount should be 100000.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Unit of measure</mat-label>
+        <mat-select formControlName="uomId">
+          <mat-option *ngFor="let uom of uoms$|async" [value]="uom.id">
+            {{uom.uom | titlecase}}
+          </mat-option>
+        </mat-select>
+        <mat-error>Unit of measure is required.</mat-error>
+      </mat-form-field>
+    </div>
+  </form>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button color="warn" mat-dialog-close>Cancel</button>
+  <button mat-button color="primary" (click)="onSave()" cdkFocusInitial>Ok</button>
+</div>

@@ -1,0 +1,28 @@
+<div style="padding: 6px; display: flex;">
+  <div style="flex: 1;">
+    jgjh
+  </div>
+  <div style="flex: 4;">
+    <div>
+      <button mat-button color="primary">See Public View</button>
+      <button mat-button color="primary" (click)="onEdit()">Edit</button>
+    </div>
+    <h1>{{recipe.title}}</h1>
+    <div>
+      {{recipe.subTitle}}
+      <button mat-icon-button (click)="openSubtitleDialog()">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </div>
+    <div>
+      {{recipe.difficulty}}
+      {{recipe.servings}}
+      {{recipe.prepTime}}
+      {{recipe.cookTime}}
+    </div>
+    <div>
+      {{recipe.description}}
+    </div>
+
+  </div>
+</div>

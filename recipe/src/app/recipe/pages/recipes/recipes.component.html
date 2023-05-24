@@ -1,0 +1,9 @@
+<section>
+  <div class="recipes-container container">
+    <div class="recipes-list">
+      <div *ngFor="let recipe of recipes" class="recipe-item">
+        <a [routerLink]="[recipe.slug]"> {{recipe.title}} </a>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,12 @@
+.recipes-list{
+  display: flex;
+  flex-direction: column;
+}
+
+.recipe-item{
+  font-size: var(--h3-font-size);
+
+  & a{
+    color: var(--title-color);
+  }
+}
